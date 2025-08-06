@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PaymentApp</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="enter_merchant_name">Enter Merchant Name</string>
+    <string name="save">Save</string>
 </resources>

@@ -2,8 +2,10 @@ package com.paymentapp.android.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.paymentapp.android.databinding.ActivityLoginBinding;
 import com.paymentapp.android.model.LoginRequest;
 import com.paymentapp.android.model.LoginResponse;
@@ -29,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         if (sharedPrefManager.isLoggedIn()) {
             startMainActivity();
             finish();
-            return; // Add return to prevent further execution
+            return;
         }
 
         binding.btnLogin.setOnClickListener(v -> {
@@ -56,8 +58,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password) {
-        binding.progressBar.setVisibility(View.VISIBLE); // Show loading
-        binding.btnLogin.setEnabled(false); // Disable button during request
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.btnLogin.setEnabled(false);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<LoginResponse> call = apiService.login(new LoginRequest(username, password));

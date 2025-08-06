@@ -1,6 +1,8 @@
 package com.paymentapp.android.merchant;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.paymentapp.android.databinding.ActivityMerchantBinding;
@@ -33,6 +35,8 @@ public class MerchantActivity extends AppCompatActivity {
 
         binding.fabAddMerchant.setOnClickListener(v -> {
             // Start AddMerchantActivity
+            Intent intent = new Intent(MerchantActivity.this, AddMerchantActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -54,13 +58,26 @@ public class MerchantActivity extends AppCompatActivity {
                     merchantList.clear();
                     merchantList.addAll(response.body());
                     adapter.notifyDataSetChanged();
+                } else {
+                    // Handle unsuccessful response (e.g., show a toast with error message)
+                    Toast.makeText(MerchantActivity.this, "Failed to load merchants: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Merchant>> call, Throwable t) {
-                // Handle error
+                // Handle network or other errors (e.g., show a toast with error message)
+                Toast.makeText(MerchantActivity.this, "Error loading merchants: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Clean up binding to avoid memory leaks
+        if (binding != null) {
+            binding = null;
+        }
     }
 }
